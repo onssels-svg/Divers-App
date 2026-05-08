@@ -1,0 +1,20 @@
+{
+  "name": "Divers — Deep Dive Investment Analysis",
+  "short_name": "Divers",
+  "description": "Professional KPI dashboard for stock analysis. Search any listed company or upload an annual report.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080912",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/divers-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "business"],
+  "screenshots": []
+}

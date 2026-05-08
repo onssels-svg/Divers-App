@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"/Users/alexonssels/Documents/Claude test/Divers App/server\" \"/Users/alexonssels/Documents/Claude test/Divers App/src/components\" \"/Users/alexonssels/Documents/Claude test/Divers App/src/services\" \"/Users/alexonssels/Documents/Claude test/Divers App/src/utils\" && echo \"Directories created\")",
+      "Bash(npm install *)",
+      "Bash(npm audit *)",
+      "Bash(timeout 15 npx vite build)",
+      "Bash(npx vite *)",
+      "Bash(node -e \"console.log\\('jspdf:', require\\('./node_modules/jspdf/package.json'\\).version\\); console.log\\('pdfjs-dist:', require\\('./node_modules/pdfjs-dist/package.json'\\).version\\)\")",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173)",
+      "Bash(pkill -f \"vite\\\\|node server/index.js\\\\|concurrently\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/api/v3/quote/AAPL?apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/stable/search?query=AAPL&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/api/v4/income-statement?symbol=AAPL&period=annual&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/stable/search-symbol?query=AAPL&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/stable/profile?symbol=AAPL&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/stable/income-statement?symbol=AAPL&period=annual&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/stable/balance-sheet-statement?symbol=AAPL&period=annual&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/stable/cash-flow-statement?symbol=AAPL&period=annual&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/stable/quote?symbol=AAPL&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/stable/key-metrics?symbol=AAPL&period=annual&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\)[0]; [print\\(k,':',v\\) for k,v in d.items\\(\\) if isinstance\\(v,\\(int,float\\)\\) or v is None]\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/stable/analyst-stock-recommendations?symbol=AAPL&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/stable/price-target-consensus?symbol=AAPL&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(npm list *)",
+      "Bash(curl -s \"https://financialmodelingprep.com/stable/search-symbol?query=Microsoft&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/stable/search-symbol?query=MSFT&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")",
+      "Bash(curl -s \"https://financialmodelingprep.com/stable/search-name?query=Microsoft&apikey=Av8Vfxhvj4ejc7riDaIoARb5j6mVOXEp\")"
+    ],
+    "additionalDirectories": [
+      "/Users/alexonssels/Documents/Claude test/Divers App"
+    ]
+  }
+}
