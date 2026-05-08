@@ -45,7 +45,7 @@ export const calculateKPIs = (financial, market = {}) => {
 
     // Financial Health
     currentRatio:     safe(currentAssets, currentLiabilities),
-    quickRatio:       currentLiabilities ? ((currentAssets || 0) - inventory) / currentLiabilities : null,
+    quickRatio:       (currentAssets != null && currentLiabilities) ? (currentAssets - (inventory || 0)) / currentLiabilities : null,
     debtToEquity:     totalEquity > 0 ? totalDebt / totalEquity : null,
     interestCoverage: (interestExpense && operatingIncome) ? operatingIncome / Math.abs(interestExpense) : null,
     netDebt:          totalDebt - (cash || 0),

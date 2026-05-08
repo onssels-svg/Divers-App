@@ -24,7 +24,8 @@ export default function App() {
   const [historical, setHistorical]   = useState(null);
   const [aiAnalysis, setAiAnalysis]   = useState(null);
   const [aiAvailable, setAiAvailable] = useState(false);
-  const [selectedInvestor, setSelectedInvestor] = useState(null);
+  const [selectedInvestors, setSelectedInvestors] = useState([]);
+  const [customInvestors, setCustomInvestors]     = useState([]);
   const [manualPrice, setManualPrice]   = useState(null);
   const [pdfMatches, setPDFMatches]     = useState([]);
   const [pdfBestMatch, setPDFBestMatch] = useState(null);
@@ -197,7 +198,7 @@ export default function App() {
 
   const handleManualPrice = (price) => {
     const p = parseFloat(price);
-    if (!p || isNaN(p) || !financial) return;
+    if (isNaN(p) || p <= 0 || !financial) return;
     const shares = financial.sharesOutstanding || 0;
     const updatedMarket = { price: p, marketCap: shares ? p * shares : null };
     setMarket(updatedMarket);
@@ -205,8 +206,33 @@ export default function App() {
     setManualPrice(p);
   };
 
+  const handleClearPrice = () => {
+    setManualPrice(null);
+    const emptyMarket = {};
+    setMarket(emptyMarket);
+    setKpis(calculateKPIs(financial, emptyMarket));
+  };
+
   const handleDemo = () => {
     showDashboard(demoFinancial, demoMarket, demoCompanyInfo, demoHistorical);
+  };
+
+  const handleInvestorToggle = (investor) => {
+    setSelectedInvestors(prev => {
+      const isSelected = prev.some(i => i.id === investor.id);
+      if (isSelected) return prev.filter(i => i.id !== investor.id);
+      if (prev.length >= 3) return prev;
+      return [...prev, investor];
+    });
+  };
+
+  const handleAddCustomInvestor = (investor) => {
+    setCustomInvestors(prev => [...prev, investor]);
+  };
+
+  const handleDeleteCustomInvestor = (id) => {
+    setCustomInvestors(prev => prev.filter(i => i.id !== id));
+    setSelectedInvestors(prev => prev.filter(i => i.id !== id));
   };
 
   const handleReset = () => {
@@ -217,7 +243,7 @@ export default function App() {
     setKpis(null);
     setHistorical(null);
     setAiAnalysis(null);
-    setSelectedInvestor(null);
+    setSelectedInvestors([]);
     setManualPrice(null);
     setPDFMatches([]);
     setPDFBestMatch(null);
@@ -260,21 +286,25 @@ export default function App() {
             <ChartsSection historical={historical} />
 
             <InvestorSelector
-              selected={selectedInvestor}
-              onSelect={setSelectedInvestor}
+              selected={selectedInvestors}
+              onToggle={handleInvestorToggle}
+              customInvestors={customInvestors}
+              onAddCustom={handleAddCustomInvestor}
+              onDeleteCustom={handleDeleteCustomInvestor}
             />
 
             <InvestorVerdictPanel
-              investor={selectedInvestor}
+              investors={selectedInvestors}
               kpis={kpis}
             />
 
             <KPIDashboard
               kpis={kpis}
-              selectedInvestor={selectedInvestor}
+              selectedInvestors={selectedInvestors}
               isPDFMode={companyInfo?.ticker === null}
               manualPrice={manualPrice}
               onPriceEntered={handleManualPrice}
+              onClearPrice={handleClearPrice}
               onAutoDetectPrice={pdfBestMatch ? handleAutoDetectPrice : null}
               autoDetectTicker={pdfBestMatch?.symbol}
               detectingPrice={detectingPrice}

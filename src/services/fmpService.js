@@ -90,7 +90,7 @@ export async function getFinancialData(ticker) {
     // P/E not in /stable/quote — derive from key-metrics earningsYield
     peRatio:         m.earningsYield ? 1 / m.earningsYield : null,
     pbRatio:         null, // not directly available; calculated in kpiCalculations from marketCap/equity
-    psRatio:         m.evToSales   ? (m.evToSales * qt.marketCap) / (m.enterpriseValue || 1) : null,
+    psRatio:         null, // derived in kpiCalculations from marketCap / revenue
     evEbitda:        m.evToEBITDA,
     enterpriseValue: m.enterpriseValue,
     fcfYield:        m.freeCashFlowYield,

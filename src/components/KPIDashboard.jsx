@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { kpiSections } from '../utils/kpiConfig';
 import KPICard from './KPICard';
 
-function PriceBanner({ manualPrice, onPriceEntered, onAutoDetectPrice, autoDetectTicker, detectingPrice, onAdvancedSubmit }) {
+function PriceBanner({ manualPrice, onPriceEntered, onClearPrice, onAutoDetectPrice, autoDetectTicker, detectingPrice, onAdvancedSubmit }) {
   const [input, setInput]       = useState('');
   const [showAdv, setShowAdv]   = useState(false);
   const [adv, setAdv]           = useState({ marketCap: '', sharesOutstanding: '', enterpriseValue: '' });
@@ -31,7 +31,7 @@ function PriceBanner({ manualPrice, onPriceEntered, onAutoDetectPrice, autoDetec
       <div className="pdf-price-banner set">
         <span className="pdf-price-icon">◈</span>
         <span>Share price set to <strong>{manualPrice.toFixed(2)}</strong> — valuation ratios calculated</span>
-        <button className="pdf-price-edit" onClick={() => onPriceEntered('')}>Edit</button>
+        <button className="pdf-price-edit" onClick={onClearPrice}>Edit</button>
       </div>
     );
   }
@@ -101,8 +101,8 @@ function PriceBanner({ manualPrice, onPriceEntered, onAutoDetectPrice, autoDetec
 }
 
 export default function KPIDashboard({
-  kpis, selectedInvestor,
-  isPDFMode, manualPrice, onPriceEntered, onAutoDetectPrice, autoDetectTicker, detectingPrice, onAdvancedSubmit,
+  kpis, selectedInvestors = [],
+  isPDFMode, manualPrice, onPriceEntered, onClearPrice, onAutoDetectPrice, autoDetectTicker, detectingPrice, onAdvancedSubmit,
 }) {
   return (
     <div>
@@ -110,6 +110,7 @@ export default function KPIDashboard({
         <PriceBanner
           manualPrice={manualPrice}
           onPriceEntered={onPriceEntered}
+          onClearPrice={onClearPrice}
           onAutoDetectPrice={onAutoDetectPrice}
           autoDetectTicker={autoDetectTicker}
           detectingPrice={detectingPrice}
@@ -124,13 +125,13 @@ export default function KPIDashboard({
           </div>
           <div className="kpi-grid">
             {section.metrics.map(metric => {
-              const isFocus = selectedInvestor?.focusKPIs.includes(metric.key);
+              const badges = selectedInvestors.filter(inv => inv.focusKPIs.includes(metric.key));
               return (
                 <KPICard
                   key={metric.key}
                   metric={metric}
                   value={kpis[metric.key]}
-                  investorBadge={isFocus ? selectedInvestor : null}
+                  investorBadges={badges.length > 0 ? badges : null}
                 />
               );
             })}

@@ -1,30 +1,37 @@
 import { useState } from 'react';
 import { formatValue } from '../utils/kpiCalculations';
 
-export default function KPICard({ metric, value, investorBadge }) {
+export default function KPICard({ metric, value, investorBadges }) {
   const [showTooltip, setShowTooltip] = useState(false);
 
-  const color  = metric.getColor(value);
-  const isNA   = value == null || isNaN(value);
+  const color   = metric.getColor(value);
+  const isNA    = value == null || isNaN(value);
   const display = isNA ? 'N/A' : formatValue(value, metric.format);
+  const badges  = investorBadges?.length > 0 ? investorBadges : null;
 
   return (
     <div className="card kpi-card">
-      {investorBadge && (
-        <div
-          className="investor-kpi-badge"
-          style={{ background: investorBadge.accent, color: '#000' }}
-          title={`${investorBadge.name} watches this metric`}
-        >
-          {investorBadge.initials}
-        </div>
-      )}
       <div className="kpi-card-top">
         <span className="kpi-name">{metric.name}</span>
         <span className={`kpi-dot ${color}`} />
       </div>
 
       <div className={`kpi-value${isNA ? ' na' : ''}`}>{display}</div>
+
+      {badges && (
+        <div className="investor-kpi-badges">
+          {badges.map(b => (
+            <div
+              key={b.id}
+              className="investor-kpi-badge"
+              style={{ background: b.accent, color: '#000' }}
+              title={`${b.name} watches this metric`}
+            >
+              {b.initials}
+            </div>
+          ))}
+        </div>
+      )}
 
       <div style={{ position: 'relative', display: 'inline-block' }}>
         <button
